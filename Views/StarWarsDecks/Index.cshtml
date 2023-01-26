@@ -1,0 +1,77 @@
+﻿@model IEnumerable<TopTrumpsFinal.Models.StarWarsDeck>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Size)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Speed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirePower)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Maneuvering)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ForceFactor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageLink)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Size)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Speed)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirePower)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Maneuvering)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ForceFactor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageLink)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.StarWarsDeckID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.StarWarsDeckID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.StarWarsDeckID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
