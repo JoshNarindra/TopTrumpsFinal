@@ -19,6 +19,29 @@ namespace TopTrumpsFinal.Controllers
             _context = context;
         }
 
+        public async Task<IActionResult> Compare(int? firstCardId, int? secondCardId)
+        {
+            if (firstCardId == null || secondCardId == null || _context.DogDeck == null)
+            {
+                return NotFound();
+            }
+
+            var dogDeck1 = await _context.DogDeck.FirstOrDefaultAsync(m => m.DogDeckID == firstCardId);
+            var dogDeck2 = await _context.DogDeck.FirstOrDefaultAsync(m => m.DogDeckID == secondCardId);
+
+            if (dogDeck1 == null || dogDeck2 == null)
+            {
+                return NotFound();
+            }
+
+            return View(new List<DogDeck>() { dogDeck1, dogDeck2 });
+        }
+
+        private IActionResult View(DogDeck dogDeck, DogDeck? dogDeck2)
+        {
+            throw new NotImplementedException();
+        }
+
         // GET: DogDecks
         public async Task<IActionResult> Index()
         {
