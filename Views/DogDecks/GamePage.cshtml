@@ -1,0 +1,82 @@
+﻿@page
+@model List<TopTrumpsFinal.Models.DogDeck>
+@for (int i = 0; i < Model.Count; i++)
+{
+    <div class="card">
+        <img src="@Model[i].ImageLink" alt="@Model[i].Name">
+        <p>@Model[i].Name</p>
+        <p>
+            <input type="checkbox" name="category" value="Size">Size: @Model[i].Size</p>
+        <p>
+            <input type="checkbox" name="category" value="Rarity">Rarity: @Model[i].Rarity</p>
+        <p>
+            <input type="checkbox" name="category" value="GoodTemper">Good Temper: @Model[i].GoodTemper</p>
+        <p>
+            <input type="checkbox" name="category" value="Cuteness">Cuteness: @Model[i].Cuteness</p>
+        <p>
+            <input type="checkbox" name="category" value="Rating">Rating: @Model[i].Rating</p>
+        <button class="compare-button" data-card-id="@Model[i].DogDeckID">Compare</button>
+    </div>
+}
+@*@{
+    DogDeck currentCard = null;
+if (Model != null)
+{
+    currentCard = Model[0];
+}
+else
+{
+    <p>No cards to display</p>
+}
+}
+<div>
+    <div>
+        <h2>Card @(Model.IndexOf(currentCard) + 1) of @Model.Count</h2>
+        <img src="@currentCard.ImageLink" alt="@currentCard.Name" style="width:150px;height:200px;">
+        <br />
+        <label>
+            <input type="checkbox" name="category" value="Size" /> Size: @currentCard.Size
+        </label>
+        <br />
+        <label>
+            <input type="checkbox" name="category" value="Rarity" /> Rarity: @currentCard.Rarity
+        </label>
+        <br />
+        <label>
+            <input type="checkbox" name="category" value="GoodTemper" /> Good Temper: @currentCard.GoodTemper
+        </label>
+        <br />
+        <label>
+            <input type="checkbox" name="category" value="Cuteness" /> Cuteness: @currentCard.Cuteness
+        </label>
+        <br />
+        <label>
+            <input type="checkbox" name="category" value="Rating" /> Rating: @currentCard.Rating
+        </label>
+        <br />
+        <button type="button" onclick="compareCards()">Compare</button>
+    </div>
+</div>
+
+<script>
+    var currentCard = @Html.Raw(Json.Serialize(Model[0]));
+    var cards = @Html.Raw(Json.Serialize(Model));
+    var currentIndex = 0;
+
+    function compareCards() {
+        var category = $("input[name='category']:checked").val();
+        var nextCard = cards[currentIndex + 1];
+        if (nextCard) {
+            if (nextCard[category] > currentCard[category]) {
+                alert("Next card wins with a " + category + " of " + nextCard[category]);
+            } else {
+                alert("Current card wins with a " + category + " of " + currentCard[category]);
+            }
+            currentCard = nextCard;
+            currentIndex++;
+        } else {
+            alert("No more cards in the deck");
+        }
+    }
+</script>
+*@
