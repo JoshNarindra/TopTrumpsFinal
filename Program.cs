@@ -1,4 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using TopTrumpsFinal.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<TopTrumpsFinalContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("TopTrumpsFinalContext") ?? throw new InvalidOperationException("Connection string 'TopTrumpsFinalContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
