@@ -48,6 +48,10 @@ namespace TopTrumpsFinal.Controllers
 
             return View(new List<DinoDeck>() { dinoDeck1, dinoDeck2 });
         }
+        private IActionResult View(DinoDeck dinoDeck, DinoDeck? dinoDeck2)
+        {
+            throw new NotImplementedException();
+        }
 
         // GET: DinoDecks
         public async Task<IActionResult> Index()

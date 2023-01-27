@@ -1,0 +1,73 @@
+﻿@model List<TopTrumpsFinal.Models.CatDeck>
+
+@{
+    ViewData["Title"] = "Compare";
+}
+
+<h1>Compare</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Size)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Rarity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].GoodTemper)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Cuteness)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Rating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].ImageLink)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Size)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rarity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GoodTemper)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cuteness)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImageLink)
+                </td>
+                 <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                 </td>
+            </tr>
+        }
+        </tbody>
+        </table>
