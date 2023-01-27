@@ -7,6 +7,21 @@
 
 <h1>Index</h1>
 
+<form method="post" asp-controller="CatDecks" asp-action="Play">
+    <button type="submit" class="btn btn-primary">Play</button>
+</form>
+
+<form method="post" asp-action="Compare" asp-route-values=" new{firstCardId = firstCardID, secondCardId = secondCardId">
+    <label for="firstCardId">Enter first card ID:</label>
+    <input type="text" id="firstCardId" name="firstCardId">
+    <br>
+    <label for="secondCardId">Enter second card ID:</label>
+    <input type="text" id="secondCardId" name="secondCardId">
+    <br><br>
+    <input type="submit" value="Compare Cards">
+</form>
+
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>

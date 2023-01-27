@@ -20,6 +20,42 @@ namespace TopTrumpsFinal.Controllers
             _context = context;
         }
 
+        public async Task<IActionResult> Play()
+        {
+            var catDecks = await _context.CatDeck.ToListAsync();
+            // Shuffle the cards
+            catDecks = catDecks.OrderBy(x => Guid.NewGuid()).ToList();
+            if (catDecks == null)
+            {
+                return NotFound();
+            }
+            Console.WriteLine("CatDecks count: " + catDecks.Count());
+            return View("GamePage", catDecks);
+        }
+
+        public async Task<IActionResult> Compare(int? firstCardId, int? secondCardId)
+        {
+            if (firstCardId == null || secondCardId == null || _context.CatDeck == null)
+            {
+                return NotFound();
+            }
+
+            var catDeck1 = await _context.CatDeck.FirstOrDefaultAsync(m => m.CatDeckID == firstCardId);
+            var catDeck2 = await _context.CatDeck.FirstOrDefaultAsync(m => m.CatDeckID == secondCardId);
+
+            if (catDeck1 == null || catDeck2 == null)
+            {
+                return NotFound();
+            }
+
+            return View(new List<CatDeck>() { catDeck1, catDeck2 });
+        }
+
+        private IActionResult View(CatDeck catDeck, CatDeck? catDeck2)
+        {
+            throw new NotImplementedException();
+        }
+
         // GET: CatDecks
         public async Task<IActionResult> Index()
         {
