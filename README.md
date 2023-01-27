@@ -1,4 +1,4 @@
-# Top Trumps Final
+# Top Trumps Game Final
 
 Project to develop an ASP.net MVC Web Application that functioned as an online "Top Trumps" Game.
 
