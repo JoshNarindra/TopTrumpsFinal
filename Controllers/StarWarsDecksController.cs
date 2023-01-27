@@ -19,6 +19,19 @@ namespace TopTrumpsFinal.Controllers
             _context = context;
         }
 
+        public async Task<IActionResult> Play()
+        {
+            var starWarsDecks = await _context.StarWarsDeck.ToListAsync();
+            // Shuffle the cards
+            starWarsDecks = starWarsDecks.OrderBy(x => Guid.NewGuid()).ToList();
+            if (starWarsDecks == null)
+            {
+                return NotFound();
+            }
+            Console.WriteLine("StarWarsDecks count: " + starWarsDecks.Count());
+            return View("GamePage", starWarsDecks);
+        }
+
         // GET: StarWarsDecks
         public async Task<IActionResult> Index()
         {
