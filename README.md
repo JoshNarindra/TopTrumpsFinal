@@ -31,13 +31,8 @@ Key:
 ✅ = Complete 🟠 = In Progress
  
  <br>
- <br>
  
 Issues/Problems as of Submission Day (27/01/23) :
 
 * Only allows for two players/no choice available for any more that two players.
 
-
- <br>
- 
->For Capita NOVUS Fullstack Development Programme.
