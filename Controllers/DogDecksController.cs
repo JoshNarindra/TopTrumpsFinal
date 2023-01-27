@@ -31,6 +31,7 @@ namespace TopTrumpsFinal.Controllers
             Console.WriteLine("DogDecks count: " + dogDecks.Count());
             return View("GamePage", dogDecks);
         }
+
             public async Task<IActionResult> Compare(int? firstCardId, int? secondCardId)
         {
             if (firstCardId == null || secondCardId == null || _context.DogDeck == null)
