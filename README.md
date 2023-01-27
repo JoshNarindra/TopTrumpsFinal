@@ -35,6 +35,9 @@ Key:
  
 Issues/Problems as of Submission Day (27/01/23) :
 
-Only allows for two players/no choice available for any more that two players.
+* Only allows for two players/no choice available for any more that two players.
 
-For Capita NOVUS Fullstack Development Programme.
+
+ <br>
+ 
+>For Capita NOVUS Fullstack Development Programme.
