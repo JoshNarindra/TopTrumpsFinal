@@ -1,36 +1,20 @@
-﻿
-@model List<TopTrumpsFinal.Models.DogDeck>
-@for (int i = 0; i < Model.Count; i++)
-{
-    <div class="card">
-        <img src="@Model[i].ImageLink" alt="@Model[i].Name">
-        <p>@Model[i].Name</p>
-        <p>
-            <input type="checkbox" name="category" value="Size">Size: @Model[i].Size</p>
-        <p>
-            <input type="checkbox" name="category" value="Rarity">Rarity: @Model[i].Rarity</p>
-        <p>
-            <input type="checkbox" name="category" value="GoodTemper">Good Temper: @Model[i].GoodTemper</p>
-        <p>
-            <input type="checkbox" name="category" value="Cuteness">Cuteness: @Model[i].Cuteness</p>
-        <p>
-            <input type="checkbox" name="category" value="Rating">Rating: @Model[i].Rating</p>
-        <button class="compare-button" data-card-id="@Model[i].DogDeckID">Compare</button>
-    </div>
-}
-@*@{
+﻿@model List<TopTrumpsFinal.Models.DogDeck>
+@{
     DogDeck currentCard = null;
-if (Model != null)
-{
-    currentCard = Model[0];
-}
-else
-{
-    <p>No cards to display</p>
-}
+    DogDeck nextCard = null;
+    if (Model != null)
+    {
+        currentCard = Model[0];
+        nextCard = Model[1];
+    }
+    else
+    {
+        <p>No cards to display</p>
+    }
 }
 <div>
-    <div>
+    <div id="first-card">
+        >
         <h2>Card @(Model.IndexOf(currentCard) + 1) of @Model.Count</h2>
         <img src="@currentCard.ImageLink" alt="@currentCard.Name" style="width:150px;height:200px;">
         <br />
@@ -54,29 +38,57 @@ else
             <input type="checkbox" name="category" value="Rating" /> Rating: @currentCard.Rating
         </label>
         <br />
+        <select name="compareCategory" id="compareCategory">
+            <option value="Size">Size</option>
+            <option value="Rarity">Rarity</option>
+            <option value="GoodTemper">Good Temper</option>
+            <option value="Cuteness">Cuteness</option>
+            <option value="Rating">Rating</option>
+        </select>
+        <br />
         <button type="button" onclick="compareCards()">Compare</button>
     </div>
-</div>
-
-<script>
-    var currentCard = @Html.Raw(Json.Serialize(Model[0]));
-    var cards = @Html.Raw(Json.Serialize(Model));
-    var currentIndex = 0;
-
-    function compareCards() {
-        var category = $("input[name='category']:checked").val();
-        var nextCard = cards[currentIndex + 1];
-        if (nextCard) {
-            if (nextCard[category] > currentCard[category]) {
-                alert("Next card wins with a " + category + " of " + nextCard[category]);
+    <div id="second-card" style="display: none;">
+        <img src="@nextCard.ImageLink" alt="@nextCard.Name" style="width:150px;height:200px;">
+        <br />
+        <label>
+            Size: @nextCard.Size
+        </label>
+        <br />
+        <label>
+            Rarity: @nextCard.Rarity
+        </label>
+        <br />
+        <label>
+            Good Temper: @nextCard.GoodTemper
+        </label>
+        <br />
+        <label>
+            Cuteness: @nextCard.Cuteness
+        </label>
+        <br />
+        <label>
+            Rating: @nextCard.Rating
+        </label>
+    </div>
+    <script>
+        var currentCard = @Html.Raw(Json.Serialize(Model[0]));
+        var cards = @Html.Raw(Json.Serialize(Model));
+        var currentIndex = 0;
+        function compareCards() {
+            var category = $("input[name='category']:checked").val();
+            var nextCard = cards[currentIndex + 1];
+            if (nextCard) {
+                document.getElementById("second-card").style.display = "block";
+                if (nextCard[category] > currentCard[category]) {
+                    alert("Next card wins with a " + category + " of " + nextCard[category]);
+                } else {
+                    alert("Current card wins with a " + category + " of " + currentCard[category]);
+                }
+                currentCard = nextCard;
+                currentIndex++;
             } else {
-                alert("Current card wins with a " + category + " of " + currentCard[category]);
+                alert("No more cards in the deck");
             }
-            currentCard = nextCard;
-            currentIndex++;
-        } else {
-            alert("No more cards in the deck");
         }
-    }
-</script>
-*@
+    </script>
