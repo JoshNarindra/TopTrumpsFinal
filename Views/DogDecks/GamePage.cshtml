@@ -1,0 +1,183 @@
+﻿@model List<TopTrumpsFinal.Models.DogDeck>
+@{
+    DogDeck currentCard = null;
+    DogDeck nextCard = null;
+    if (Model != null)
+    {
+        currentCard = Model[0];
+        nextCard = Model[1];
+    }
+    else
+    {
+        <p>No cards to display</p>
+    }
+    void CompareCards(DogDeck currentCard, DogDeck nextCard)
+    {
+        Console.WriteLine(currentCard.Size);
+        Console.WriteLine(nextCard.Size);
+    }
+}
+<div>
+    <div id="first-card">
+        >
+        <h2>Card @(Model.IndexOf(currentCard) + 1) of @Model.Count</h2>
+        <img src="@currentCard.ImageLink" alt="@currentCard.Name" style="width:150px;height:200px;">
+        <br />
+        <label>
+            <input type="checkbox" name="category" value="Size" /> Size: @currentCard.Size
+        </label>
+        <br />
+        <label>
+            <input type="checkbox" name="category" value="Rarity" /> Rarity: @currentCard.Rarity
+        </label>
+        <br />
+        <label>
+            <input type="checkbox" name="category" value="GoodTemper" /> Good Temper: @currentCard.GoodTemper
+        </label>
+        <br />
+        <label>
+            <input type="checkbox" name="category" value="Cuteness" /> Cuteness: @currentCard.Cuteness
+        </label>
+        <br />
+        <label>
+            <input type="checkbox" name="category" value="Rating" /> Rating: @currentCard.Rating
+        </label>
+        <br />
+        @*<button type="button" onclick="@CompareCards()"></button>*@
+        <button type="button" onclick="compareCards('@currentCard.Size', '@currentCard.Rarity', '@currentCard.GoodTemper', 
+'@currentCard.Cuteness', '@currentCard.Rating','@nextCard.Size', '@nextCard.Rarity', '@nextCard.GoodTemper',
+'@nextCard.Cuteness', '@nextCard.Rating')">
+            Compare
+        </button>
+    </div>
+    <div id="second-card" style="display: none;">
+        <img src="@nextCard.ImageLink" alt="@nextCard.Name" style="width:150px;height:200px;">
+        <br />
+        <label>
+            Size: @nextCard.Size
+        </label>
+        <br />
+        <label>
+            Rarity: @nextCard.Rarity
+        </label>
+        <br />
+        <label>
+            Good Temper: @nextCard.GoodTemper
+        </label>
+        <br />
+        <label>
+            Cuteness: @nextCard.Cuteness
+        </label>
+        <br />
+        <label>
+            Rating: @nextCard.Rating
+        </label>
+    </div>
+    <script>
+        var currentCard = @Html.Raw(Json.Serialize(Model[0]));
+        var cards = @Html.Raw(Json.Serialize(Model));
+        var currentIndex = 0;
+        var nextCard = cards[currentIndex + 1];
+        function compareCards(currentSize, currentRarity, currentGoodTemper, currentCuteness, currentRating, nextSize, nextRarity, nextGoodTemper, nextCuteness, nextRating) {
+            
+            //alert(", Current Size: " + currentSize + ", Current Rarity: " + currentRarity + ", Current Temper: " + currentGoodTemper +
+            //    ", Current Rating: " + currentRating + ", Next Size: " + nextSize + ", Next Size: " + nextSize + ", Next Rarity: " + nextRarity +
+            //    ", Next Temper: " + nextGoodTemper + ", Next Size: " + nextCuteness + ", Next Cuteness: " + nextSize + ", Next Rating: " + nextRating)
+
+            var category = $("input[name='category']:checked").val();
+
+            if (nextCard) {
+                document.getElementById("second-card").style.display = "block";
+                switch (category) {
+                    case "Size":
+                        if (nextSize > currentSize) {
+                            alert("Next card wins with a size of " + nextSize);
+                        } else {
+                            alert("Current card wins with a size of " + currentSize);
+                        }
+                        break;
+                    case "Rarity":
+                        if (nextRarity > currentRarity) {
+                            alert("Next card wins with a rarity of " + nextRarity);
+                        } else {
+                            alert("Current card wins with a rarity of " + currentRarity);
+                        }
+                        break;
+                    case "Good Temper":
+                        if (nextGoodTemper > currentGoodTemper) {
+                            alert("Next card wins with a good temper of " + nextGoodTemper);
+                        } else {
+                            alert("Current card wins with a good temper of " + currentGoodTemper);
+                        }
+                        break;
+                    case "Cuteness":
+                        if (nextCuteness > currentCuteness) {
+                            alert("Next card wins with a cuteness of " + nextCuteness);
+                        } else {
+                            alert("Current card wins with a cuteness of " + currentCuteness);
+                        }
+                        break;
+                    case "Rating":
+                        if (nextRating > currentRating) {
+                            alert("Next card wins with a rating of " + nextRating);
+                        } else {
+                            alert("Current card wins with a rating of " + currentRating);
+                        }
+                        break;
+                    default:
+                        alert("Please select a category");
+                }
+            } else {
+                alert("No more cards in the deck");
+            }
+            currentIndex = currentIndex + 2;
+        }
+        
+            //var category = $("input[name='category']:checked").val();
+        //    if (nextCard) {
+        //    document.getElementById("second-card").style.display = "block";
+        //    switch (category) {
+        //        case "Size":
+        //            if (nextCard.Size < size) {
+        //                alert(nextCard.Size);
+        //            } else {
+        //                alert(currentCard.Size);
+        //            }
+        //            break;
+        //        case "Rarity":
+        //            if (nextCard.Rarity < rarity) {
+        //                alert("Next card wins with a rarity of " + nextCard.Rarity);
+        //            } else {
+        //                alert("Current card wins with a rarity of " + rarity);
+        //            }
+        //            break;
+        //        case "GoodTemper":
+        //            if (nextCard.GoodTemper < goodTemper) {
+        //                alert("Next card wins with a good temper of " + nextCard.GoodTemper);
+        //            } else {
+        //                alert("Current card wins with a good temper of " + goodTemper);
+        //            }
+        //            break;
+        //        case "Cuteness":
+        //            if (nextCard.Cuteness < cuteness) {
+        //                alert("Next card wins with a cuteness of " + nextCard.Cuteness);
+        //            } else {
+        //                alert("Current card wins with a cuteness of " + cuteness);
+        //            }
+        //            break;
+        //        case "Rating":
+        //            if (nextCard.Rating < rating) {
+        //                alert("Next card wins with a rating of " + nextCard.Rating);
+        //            } else {
+        //                alert("Current card wins with a rating of " + rating);
+        //            }
+        //            break;
+        //        default:
+        //            alert("Please select a category to compare");
+        //        }
+        //        currentIndex++;
+        //    } else {
+        //        alert("No more cards in the deck");
+        //    }
+        //}
+    </script>

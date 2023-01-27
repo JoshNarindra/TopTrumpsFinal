@@ -19,10 +19,40 @@ namespace TopTrumpsFinal.Controllers
             _context = context;
         }
 
+        public async Task<IActionResult> Play()
+        {
+            var dinoDecks = await _context.DinoDeck.ToListAsync();
+            // Shuffle the cards
+            dinoDecks = dinoDecks.OrderBy(x => Guid.NewGuid()).ToList();
+            if (dinoDecks == null)
+            {
+                return NotFound();
+            }
+            Console.WriteLine("DinoDecks count: " + dinoDecks.Count());
+            return View("GamePage", dinoDecks);
+        }
+        public async Task<IActionResult> Compare(int? firstCardId, int? secondCardId)
+        {
+            if (firstCardId == null || secondCardId == null || _context.DinoDeck == null)
+            {
+                return NotFound();
+            }
+
+            var dinoDeck1 = await _context.DinoDeck.FirstOrDefaultAsync(m => m.DinoDeckID == firstCardId);
+            var dinoDeck2 = await _context.DinoDeck.FirstOrDefaultAsync(m => m.DinoDeckID == secondCardId);
+
+            if (dinoDeck1 == null || dinoDeck2 == null)
+            {
+                return NotFound();
+            }
+
+            return View(new List<DinoDeck>() { dinoDeck1, dinoDeck2 });
+        }
+
         // GET: DinoDecks
         public async Task<IActionResult> Index()
         {
-              return View(await _context.DinoDeck.ToListAsync());
+            return View(await _context.DinoDeck.ToListAsync());
         }
 
         // GET: DinoDecks/Details/5
@@ -148,14 +178,14 @@ namespace TopTrumpsFinal.Controllers
             {
                 _context.DinoDeck.Remove(dinoDeck);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool DinoDeckExists(int id)
         {
-          return _context.DinoDeck.Any(e => e.DinoDeckID == id);
+            return _context.DinoDeck.Any(e => e.DinoDeckID == id);
         }
     }
 }
