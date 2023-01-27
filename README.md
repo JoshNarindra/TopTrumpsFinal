@@ -8,11 +8,11 @@ Project Specification:
 
 * Build an base ASP.net MVC Application. ✅
 
-* Allow the users to choose between 4 decks of cards. ✅
+* Allow the players to choose a deck to play game with out of 4 decks of cards. ✅
 
 * Allow the user to choose how many players there will be in the game.
 
-* Have the information for each deck of cards stored on an SQL server. 🟠 (Server Local to each PC)
+* Have the information for each deck of cards stored on an SQL server. 🟠 (Currently Server Local to each PC)
 
 * Each turn every user will be able to draw a card. 🟠
 
