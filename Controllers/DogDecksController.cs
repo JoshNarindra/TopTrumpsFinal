@@ -18,8 +18,20 @@ namespace TopTrumpsFinal.Controllers
         {
             _context = context;
         }
-
-        public async Task<IActionResult> Compare(int? firstCardId, int? secondCardId)
+        
+        public async Task<IActionResult> Play()
+        {
+            var dogDecks = await _context.DogDeck.ToListAsync();
+            // Shuffle the cards
+            dogDecks = dogDecks.OrderBy(x => Guid.NewGuid()).ToList();
+            if (dogDecks == null)
+            {
+                return NotFound();
+            }
+            Console.WriteLine("DogDecks count: " + dogDecks.Count());
+            return View("GamePage", dogDecks);
+        }
+            public async Task<IActionResult> Compare(int? firstCardId, int? secondCardId)
         {
             if (firstCardId == null || secondCardId == null || _context.DogDeck == null)
             {

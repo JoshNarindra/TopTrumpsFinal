@@ -1,0 +1,94 @@
+﻿@model List<TopTrumpsFinal.Models.DogDeck>
+@{
+    DogDeck currentCard = null;
+    DogDeck nextCard = null;
+    if (Model != null)
+    {
+        currentCard = Model[0];
+        nextCard = Model[1];
+    }
+    else
+    {
+        <p>No cards to display</p>
+    }
+}
+<div>
+    <div id="first-card">
+        >
+        <h2>Card @(Model.IndexOf(currentCard) + 1) of @Model.Count</h2>
+        <img src="@currentCard.ImageLink" alt="@currentCard.Name" style="width:150px;height:200px;">
+        <br />
+        <label>
+            <input type="checkbox" name="category" value="Size" /> Size: @currentCard.Size
+        </label>
+        <br />
+        <label>
+            <input type="checkbox" name="category" value="Rarity" /> Rarity: @currentCard.Rarity
+        </label>
+        <br />
+        <label>
+            <input type="checkbox" name="category" value="GoodTemper" /> Good Temper: @currentCard.GoodTemper
+        </label>
+        <br />
+        <label>
+            <input type="checkbox" name="category" value="Cuteness" /> Cuteness: @currentCard.Cuteness
+        </label>
+        <br />
+        <label>
+            <input type="checkbox" name="category" value="Rating" /> Rating: @currentCard.Rating
+        </label>
+        <br />
+        <select name="compareCategory" id="compareCategory">
+            <option value="Size">Size</option>
+            <option value="Rarity">Rarity</option>
+            <option value="GoodTemper">Good Temper</option>
+            <option value="Cuteness">Cuteness</option>
+            <option value="Rating">Rating</option>
+        </select>
+        <br />
+        <button type="button" onclick="compareCards()">Compare</button>
+    </div>
+    <div id="second-card" style="display: none;">
+        <img src="@nextCard.ImageLink" alt="@nextCard.Name" style="width:150px;height:200px;">
+        <br />
+        <label>
+            Size: @nextCard.Size
+        </label>
+        <br />
+        <label>
+            Rarity: @nextCard.Rarity
+        </label>
+        <br />
+        <label>
+            Good Temper: @nextCard.GoodTemper
+        </label>
+        <br />
+        <label>
+            Cuteness: @nextCard.Cuteness
+        </label>
+        <br />
+        <label>
+            Rating: @nextCard.Rating
+        </label>
+    </div>
+    <script>
+        var currentCard = @Html.Raw(Json.Serialize(Model[0]));
+        var cards = @Html.Raw(Json.Serialize(Model));
+        var currentIndex = 0;
+        function compareCards() {
+            var category = $("input[name='category']:checked").val();
+            var nextCard = cards[currentIndex + 1];
+            if (nextCard) {
+                document.getElementById("second-card").style.display = "block";
+                if (nextCard[category] > currentCard[category]) {
+                    alert("Next card wins with a " + category + " of " + nextCard[category]);
+                } else {
+                    alert("Current card wins with a " + category + " of " + currentCard[category]);
+                }
+                currentCard = nextCard;
+                currentIndex++;
+            } else {
+                alert("No more cards in the deck");
+            }
+        }
+    </script>
